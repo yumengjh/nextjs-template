@@ -62,7 +62,7 @@ public/         # 静态资源
 
 ## GitHub Actions
 
-默认提供 3 个工作流：`CI 检查`、`CD 部署（SFTP）`、`CD 部署（FTP）`。`CI 检查` 会自动触发，两个部署工作流都改为仅支持 `workflow_dispatch` 手动触发。部署工作流默认读取 `BUILD_OUTPUT_DIR` 作为产物目录；如果没有配置该变量，则回退到 `out`。
+默认提供 3 个工作流：`CI 检查`、`CD 部署（SFTP）`、`CD 部署（FTP）`。`CI 检查` 会自动触发，两个部署工作流都改为仅支持 `workflow_dispatch` 手动触发。3 个工作流都会先显式安装 `pnpm`，再启用 `setup-node` 的 `pnpm` 缓存。部署工作流默认读取 `BUILD_OUTPUT_DIR` 作为产物目录；如果没有配置该变量，则回退到 `out`。
 
 更详细的说明请查看根目录的 `MANUAL.md`。
 

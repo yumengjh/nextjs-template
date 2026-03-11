@@ -301,14 +301,21 @@ pnpm lint-staged
 
 `CI 检查` 工作流默认执行：
 
-1. 安装依赖
-2. `pnpm lint`
-3. `pnpm format:check`
-4. `pnpm typecheck`
-5. `pnpm spellcheck`
-6. `pnpm test`
-7. `pnpm build`
-8. 上传构建产物
+1. 显式安装 `pnpm`
+2. 安装依赖
+3. `pnpm lint`
+4. `pnpm format:check`
+5. `pnpm typecheck`
+6. `pnpm spellcheck`
+7. `pnpm test`
+8. `pnpm build`
+9. 上传构建产物
+
+补充说明：
+
+- GitHub Actions 中会先通过 `pnpm/action-setup` 显式安装 `pnpm`
+- 然后再使用 `actions/setup-node` 的 `cache: pnpm`
+- 这样可以避免 `setup-node` 在未找到 `pnpm` 可执行文件时直接报错
 
 ### 6.3 产物目录环境变量
 
