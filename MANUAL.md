@@ -294,8 +294,8 @@ pnpm lint-staged
 触发方式：
 
 - `CI 检查`：`push`、`pull_request`、`workflow_dispatch`
-- `CD 部署（SFTP）`：推送到 `main` 或手动触发
-- `CD 部署（FTP）`：推送到 `main` 或手动触发
+- `CD 部署（SFTP）`：仅支持 `workflow_dispatch` 手动触发
+- `CD 部署（FTP）`：仅支持 `workflow_dispatch` 手动触发
 
 ### 6.2 CI 会做什么
 
@@ -328,6 +328,7 @@ pnpm lint-staged
 注意：
 
 - 当前模板的 FTP / SFTP 工作流本质上适合**可直接上传的静态产物目录**
+- 两个部署工作流默认不会在推送代码后自动执行，需要你在 GitHub Actions 页面手动触发
 - 如果未来改成 SSR / Node 服务端部署，通常不应该继续沿用 FTP / SFTP 工作流，而要改成服务器发布或容器部署流程
 
 ### 6.4 SFTP 部署所需 Secrets
