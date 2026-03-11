@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 个人 Next.js 基础模板
 
-## Getting Started
+一个适合长期复用的 Next.js 个人基础模板，默认集成：
 
-First, run the development server:
+- Next.js App Router
+- TypeScript
+- SCSS + 全局主题变量
+- Tailwind CSS v4
+- Vitest + Testing Library
+- Prettier + ESLint + CSpell
+- Husky + lint-staged + commitlint + cz-git
+- GitHub Actions（CI / SFTP / FTP）
+
+## 常用命令
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
+pnpm lint
+pnpm lint:fix
+pnpm format
+pnpm format:check
+pnpm typecheck
+pnpm spellcheck
+pnpm test
+pnpm check
+pnpm commit
+pnpm lint-staged
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 目录结构
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+src/
+  app/          # 路由、layout、全局样式入口
+  components/   # 通用组件与默认首页组件
+  lib/          # 模板级配置与框架相关工具
+  styles/       # SCSS 变量与样式基础设施
+  test/         # Vitest setup、测试渲染工具
+  utils/        # 纯函数工具
+public/         # 静态资源
+.github/
+  workflows/    # GitHub Actions 工作流
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 样式变量
 
-## Learn More
+全局颜色变量位于 `src/styles/scss/_tokens.scss`：
 
-To learn more about Next.js, take a look at the following resources:
+- `--hue-base`
+- `--c-*`
+- `--ld-*`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+默认支持 `:root` / `.light` / `.dark` 主题变量策略。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 工程化能力
 
-## Deploy on Vercel
+- `pnpm commit`：先询问是否写入 `CHANGELOG.md`，再进入 `cz-git` 交互式提交
+- `pnpm lint-staged`：手动验证暂存区检查链路
+- `pre-commit`：自动执行 Prettier、ESLint、CSpell
+- `commit-msg`：自动执行 commitlint 校验
+- GitHub Actions：内置 CI、SFTP 部署、FTP 部署工作流
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## GitHub Actions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+默认提供 3 个工作流：
+
+- `CI 检查`
+- `CD 部署（SFTP）`
+- `CD 部署（FTP）`
+
+部署工作流默认读取 `BUILD_OUTPUT_DIR` 作为产物目录；如果没有配置该变量，则回退到 `out`。
+
+更详细的说明请查看根目录的 `MANUAL.md`。
+
+## 变更记录
+
+- 根目录内置 `CHANGELOG.md`
+- `pnpm commit` 默认会先询问是否写入变更记录，默认值为“否”
+- 只有在本次提交成功且你选择“是”时，才会把本次提交摘要追加到 `CHANGELOG.md`
+- 当前记录格式偏简洁，适合作为个人模板的开发过程记录，不是自动发布日志

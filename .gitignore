@@ -9,6 +9,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+.pnpm-store/
 
 # testing
 /coverage
@@ -23,6 +24,9 @@
 # misc
 .DS_Store
 *.pem
+.husky/_/
+.eslintcache
+.cspellcache
 
 # debug
 npm-debug.log*
